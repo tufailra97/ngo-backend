@@ -1,21 +1,27 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import db from './db';
+import Database from './db';
 
+// initialize dotev
 dotenv.config();
 
-console.log(dotenv.config());
+// get the port
+const PORT: number = 8080 | parseInt(process.env.PORT!);
 
-const PORT: number = 8080;
-
+// initialize expres
 const app: Application = express();
 
-db.then(() => {
-  console.log('connected to the databse');
-});
+// apply middlewares
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.get('/', (reques: Request, response: Response) => {
+// connect to mongo database
+new Database().connect();
+
+// root folder
+app.get('/', (request: Request, response: Response) => {
   response.send('RUNNING');
 });
 
+// run server
 app.listen(PORT);

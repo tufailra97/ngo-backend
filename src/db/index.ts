@@ -1,11 +1,27 @@
-import mongodb from 'mongodb';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const connect = mongodb.connect(process.env.DATABASE_URL!, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+class Database {
+  private readonly DB_URI: string = process.env.DATABASE_URL!;
 
-export default connect;
+  connect = () => {
+    mongoose.connect(
+      this.DB_URI,
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      },
+      err => {
+        if (err) {
+          throw new Error(err.message);
+        } else {
+          console.log('Successfully connected to the database');
+        }
+      }
+    );
+  };
+}
+
+export default Database;
