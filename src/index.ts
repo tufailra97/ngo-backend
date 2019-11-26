@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import Database from './db';
+import Auth from './routes/auth';
 
 // initialize dotev
 dotenv.config();
@@ -22,6 +23,10 @@ new Database().connect();
 app.get('/', (request: Request, response: Response) => {
   response.send('RUNNING');
 });
+
+// define routes
+
+app.use('/v1/user', Auth);
 
 // run server
 app.listen(PORT);
