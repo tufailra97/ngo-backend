@@ -17,8 +17,9 @@ router.post('/register-user', async (request: Request, response: Response) => {
     email
   });
 
+  // if error stop validation
   if (error) {
-    response.status(400).json({
+    return response.status(400).json({
       errors: error.details[0].message
     });
   }
@@ -27,7 +28,7 @@ router.post('/register-user', async (request: Request, response: Response) => {
 
   // if user email exist stop validation
   if (userExist) {
-    response.status(400).json({
+    return response.status(400).json({
       message: 'This email already exist in our database'
     });
   }
