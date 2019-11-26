@@ -2,7 +2,7 @@
   "name": "ngo-backend",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "tufail97 <tufail.rahman@adyli.com>",
+  "author": "tufailra97",
   "license": "MIT",
   "scripts": {
     "start": "node dist/index.js",
