@@ -1,6 +1,7 @@
 import { Router, Response, Request } from 'express';
 import { User as UserSchema } from '../schema';
 import { AuthValidation } from '../services';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 const router = Router();
@@ -90,10 +91,12 @@ router.post('/login', async (request: Request, response: Response) => {
       message: 'Invalid password'
     });
 
-  // TODO: generate jwt
-  return response.status(200).json({
-    message: 'logged in successfully'
-  });
+  const token = jwt.sign({ token: user.id }, process.env.JWT_SECRET_KEY!);
+
+  response
+    .header('token', token)
+    .status(200)
+    .json({ token: token });
 });
 
 export default router;
