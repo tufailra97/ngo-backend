@@ -1,5 +1,5 @@
 import { Router, Response, Request } from 'express';
-import { User as UserSchema, User } from '../schema';
+import { User as UserSchema } from '../schema';
 import { AuthValidation } from '../services';
 import bcrypt from 'bcrypt';
 

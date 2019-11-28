@@ -1,3 +1,3 @@
-import AuthValidation from './AuthValidation';
+import AuthValidation from './authValidation';
 
 export { AuthValidation };
