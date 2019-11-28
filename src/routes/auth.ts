@@ -56,4 +56,44 @@ router.post('/register-user', async (request: Request, response: Response) => {
   }
 });
 
+router.post('/login', async (request: Request, response: Response) => {
+  const email: string = request.body.email;
+  const password: string = request.body.password;
+
+  const { error } = new AuthValidation().loginValidation({
+    email,
+    password
+  });
+
+  // if error stop login
+  if (error)
+    return response.status(400).json({
+      message: error.details[0].message
+    });
+
+  // get email from collection
+  const user = await UserSchema.findOne({
+    email: email
+  });
+
+  // if user doesn't exit stop validation
+  if (!user)
+    return response.status(401).json({
+      message: 'Invalid email'
+    });
+
+  // validate password
+  const validatePassword = await bcrypt.compare(password, user.password);
+
+  if (!validatePassword)
+    return response.status(401).json({
+      message: 'Invalid password'
+    });
+
+  // TODO: generate jwt
+  return response.status(200).json({
+    message: 'logged in successfully'
+  });
+});
+
 export default router;

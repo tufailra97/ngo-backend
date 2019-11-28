@@ -3,7 +3,7 @@ import Joi, { ValidationResult } from '@hapi/joi';
 class AuthValidation {
   /**
    * Validate users input
-   * @return validation results
+   * @return ValidationResult
    */
   registerValidation = (data: {
     username: string;
@@ -20,6 +20,26 @@ class AuthValidation {
       username: Joi.string()
         .required()
         .min(3)
+    });
+
+    return validationSchema.validate(data);
+  };
+
+  /**
+   * Validate user login input
+   * @return ValidationResult
+   */
+  loginValidation = (data: {
+    email: string;
+    password: string;
+  }): ValidationResult => {
+    const validationSchema = Joi.object({
+      email: Joi.string()
+        .required()
+        .email(),
+      password: Joi.string()
+        .required()
+        .min(8)
     });
 
     return validationSchema.validate(data);
