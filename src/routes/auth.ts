@@ -96,7 +96,7 @@ router.post('/login', async (request: Request, response: Response) => {
   response
     .header('token', token)
     .status(200)
-    .json({ token: token });
+    .json({ token: token, user_id: user.id });
 });
 
 export default router;
