@@ -4,7 +4,22 @@ interface IUser extends Document {
   username: string;
   password: string;
   email: string;
+  favourites: [
+    {
+      type: 'serie' | 'movie';
+      id: number;
+      title: string;
+      poster_path: string;
+    }
+  ];
 }
+
+const Favourites = new Schema({
+  type: String,
+  id: Number,
+  title: String,
+  poster_path: String
+});
 
 const User = new Schema({
   username: {
@@ -22,7 +37,8 @@ const User = new Schema({
     required: true,
     min: 8,
     max: 1024
-  }
+  },
+  favourites: [Favourites]
 });
 
 export default mongoose.model<IUser>('User', User);
