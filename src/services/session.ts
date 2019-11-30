@@ -8,9 +8,8 @@ interface IVerify extends Request {
 // TODO: implement express session
 class Session {
   verifyToken = (request: IVerify, response: Response, next: NextFunction) => {
-    console.log('mffkfds');
-
     const token = request.header('token');
+
     if (!token) return response.status(401).json({ message: 'Unauthorized' });
 
     try {
