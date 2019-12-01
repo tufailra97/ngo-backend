@@ -4,6 +4,30 @@ import { Session, Validation } from '../services';
 
 const router = Router();
 
+router.get(
+  '/get',
+  new Session().verifyToken,
+  async (request: Request, response: Response) => {
+    // user ID
+    const user_id: string = request.body.user_id;
+
+    // get user from db
+    const user = await User.findOne({ _id: user_id });
+
+    if (!user) {
+      return response.status(401).json({
+        message: 'Unable to find the user'
+      });
+    }
+
+    const { favourites } = user;
+
+    response.status(200).json({
+      items: favourites
+    });
+  }
+);
+
 router.post(
   '/add',
   new Session().verifyToken,
