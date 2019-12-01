@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import Database from './db';
 import auth from './routes/auth';
 import favourite from './routes/favourite';
@@ -16,6 +17,7 @@ const app: Application = express();
 // apply middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
 
 // connect to mongo database
 new Database().connect();
