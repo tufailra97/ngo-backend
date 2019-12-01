@@ -1,6 +1,6 @@
 import Joi, { ValidationResult } from '@hapi/joi';
 
-class AuthValidation {
+class Validation {
   /**
    * Validate users input
    * @return ValidationResult
@@ -44,6 +44,28 @@ class AuthValidation {
 
     return validationSchema.validate(data);
   };
+
+  favouriteAddValidation = (data: {
+    item_id: number;
+    type: string;
+    title: string;
+    poster_path: string;
+  }): ValidationResult => {
+    const validationSchema = Joi.object({
+      item_id: Joi.number().required(),
+      type: Joi.string().required(),
+      title: Joi.string().required(),
+      poster_path: Joi.string()
+    });
+    return validationSchema.validate(data);
+  };
+
+  favouriteRemoveValidation = (data: { item_id: number }): ValidationResult => {
+    const validationSchema = Joi.object({
+      item_id: Joi.number().required()
+    });
+    return validationSchema.validate(data);
+  };
 }
 
-export default AuthValidation;
+export default Validation;

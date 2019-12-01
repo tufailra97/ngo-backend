@@ -1,6 +1,6 @@
 import { Router, Response, Request } from 'express';
 import { User as UserSchema } from '../model';
-import { AuthValidation } from '../services';
+import { Validation } from '../services';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
@@ -12,7 +12,7 @@ router.post('/register-user', async (request: Request, response: Response) => {
   const email: string = request.body.email;
 
   // validate user input details
-  const { error } = new AuthValidation().registerValidation({
+  const { error } = new Validation().registerValidation({
     username,
     password,
     email
@@ -61,7 +61,7 @@ router.post('/login', async (request: Request, response: Response) => {
   const email: string = request.body.email;
   const password: string = request.body.password;
 
-  const { error } = new AuthValidation().loginValidation({
+  const { error } = new Validation().loginValidation({
     email,
     password
   });
