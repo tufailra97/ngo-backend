@@ -1,7 +1,6 @@
 import { Router, Response, Request } from 'express';
 import { User } from '../model';
-import { Session } from '../services';
-import { json } from 'body-parser';
+import { Session, Validation } from '../services';
 
 const router = Router();
 
@@ -19,6 +18,14 @@ router.post(
       title: request.body.title,
       poster_path: request.body.poster_path
     };
+
+    const { error } = new Validation().favouriteAddValidation(item);
+
+    if (error) {
+      return response.status(400).json({
+        message: error.details[0].message
+      });
+    }
 
     // get user from db
     const user = await User.findOne({ _id: user_id });
@@ -42,7 +49,6 @@ router.post(
       });
     }
 
-    // TODO : add validation
     user!.favourites.push({
       type: 'serie',
       id: item.item_id,
@@ -70,6 +76,16 @@ router.delete(
     // user ID
     const user_id: string = request.body.user_id;
     const items_id: Array<number> = request.body.items_id;
+
+    const { error } = new Validation().favouriteRemoveValidation({
+      items_id
+    });
+
+    if (error) {
+      return response.status(400).json({
+        message: error.details[0].message
+      });
+    }
 
     if (!(Array.isArray(items_id) && items_id.length > 0)) {
       return response.status(400).json({

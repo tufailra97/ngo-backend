@@ -45,6 +45,10 @@ class Validation {
     return validationSchema.validate(data);
   };
 
+  /**
+   * validate item to add
+   * @returns ValidationResult
+   */
   favouriteAddValidation = (data: {
     item_id: number;
     type: string;
@@ -59,10 +63,15 @@ class Validation {
     });
     return validationSchema.validate(data);
   };
-
-  favouriteRemoveValidation = (data: { item_id: number }): ValidationResult => {
+  /**
+   * validate item to remove
+   * @returns ValidationResult
+   */
+  favouriteRemoveValidation = (data: {
+    items_id: Array<number>;
+  }): ValidationResult => {
     const validationSchema = Joi.object({
-      item_id: Joi.number().required()
+      items_id: Joi.array().items(Joi.number())
     });
     return validationSchema.validate(data);
   };
