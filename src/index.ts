@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import Database from './db';
 import auth from './routes/auth';
+import favourite from './routes/favourite';
 
 // initialize dotev
 dotenv.config();
@@ -26,5 +27,6 @@ app.get('/', (request: Request, response: Response) => {
 
 // define routes
 app.use('/v1/user', auth);
+app.use('/v1/favourite', favourite);
 // run server
 app.listen(PORT);

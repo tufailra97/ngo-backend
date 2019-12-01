@@ -8,9 +8,11 @@ interface IVerify extends Request {
 // TODO: implement express session
 class Session {
   verifyToken = (request: IVerify, response: Response, next: NextFunction) => {
-    const token = request.header('token');
+    const token = request.header('authorization')!.split(' ')[1];
 
-    if (!token) return response.status(401).json({ message: 'Unauthorized' });
+    if (!token) {
+      return response.status(401).json({ message: 'Access Denied' });
+    }
 
     try {
       const _verifiedToken = jwt.verify(token, process.env.JWT_SECRET_KEY!);

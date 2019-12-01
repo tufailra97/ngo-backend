@@ -91,10 +91,10 @@ router.post('/login', async (request: Request, response: Response) => {
       message: 'Invalid password'
     });
 
-  const token = jwt.sign({ token: user.id }, process.env.JWT_SECRET_KEY!);
+  const token = jwt.sign({ token: user.password }, process.env.JWT_SECRET_KEY!);
 
   response
-    .header('token', token)
+    .header('auth-token', token)
     .status(200)
     .json({ token: token, user_id: user.id });
 });
