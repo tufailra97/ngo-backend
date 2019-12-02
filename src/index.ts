@@ -9,7 +9,7 @@ import favourite from './routes/favourite';
 dotenv.config();
 
 // get the port
-const PORT: number = 8080 | parseInt(process.env.PORT!);
+const PORT: number = parseInt(process.env.PORT!) || 8080;
 
 // initialize expres
 const app: Application = express();
