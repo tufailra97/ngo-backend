@@ -11,8 +11,6 @@ class Session {
   verifyToken = (request: IVerify, response: Response, next: NextFunction) => {
     const token = request.header('authorization')!.split(' ')[1];
 
-    console.log('token ---> ', token);
-
     if (!token) {
       return response.status(401).json({ message: 'Access Denied' });
     }

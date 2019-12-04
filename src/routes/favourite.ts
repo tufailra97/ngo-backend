@@ -11,8 +11,6 @@ router.get(
     // user ID
     const user_id: string = request.query.user_id;
 
-    console.log('user ---> ', user_id);
-
     // get user from db
     const user = await User.findOne({ _id: user_id });
 
