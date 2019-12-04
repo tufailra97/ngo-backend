@@ -9,7 +9,7 @@ router.get(
   new Session().verifyToken,
   async (request: Request, response: Response) => {
     // user ID
-    const user_id: string = request.body.user_id;
+    const user_id: string = request.query.user_id;
 
     // get user from db
     const user = await User.findOne({ _id: user_id });

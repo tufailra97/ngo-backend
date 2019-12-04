@@ -6,6 +6,7 @@ interface IVerify extends Request {
 }
 
 // TODO: implement express session
+// TODO: implement refresh token
 class Session {
   verifyToken = (request: IVerify, response: Response, next: NextFunction) => {
     const token = request.header('authorization')!.split(' ')[1];
