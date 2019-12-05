@@ -74,7 +74,7 @@ router.post(
     }
 
     user!.favourites.push({
-      type: 'serie',
+      type: item.type,
       id: item.item_id,
       title: item.title,
       poster_path: item.poster_path
